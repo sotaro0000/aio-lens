@@ -117,13 +117,13 @@ export default function Home() {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://example.com/article"
-                className="flex-1 border border-slate-300 bg-white px-3.5 py-2.5 font-mono text-sm text-slate-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-3 font-mono text-sm text-slate-800 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 disabled={loading}
               />
               <button
                 type="submit"
                 disabled={loading || !url.trim()}
-                className="bg-blue-600 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {loading ? "解析中…" : "解析する"}
               </button>
@@ -139,7 +139,7 @@ export default function Home() {
                     analyze(ex);
                   }}
                   disabled={loading}
-                  className="border border-slate-200 px-2 py-0.5 font-mono text-[11px] text-slate-500 transition hover:border-blue-400 hover:text-blue-700 disabled:opacity-50"
+                  className="rounded-full border border-slate-200 bg-white px-3 py-1 font-mono text-[11px] text-slate-500 transition hover:border-blue-400 hover:text-blue-700 disabled:opacity-50"
                 >
                   {ex.replace(/^https?:\/\//, "")}
                 </button>
@@ -170,13 +170,13 @@ export default function Home() {
               {/* 使い方 3ステップ */}
               <div>
                 <p className="label-mono mb-4">使い方 — 3 ステップ</p>
-                <div className="grid grid-cols-1 gap-px border border-slate-200 bg-slate-200 sm:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                   {[
                     ["01", "URL を入力", "記事・LP・商品ページなどの URL を貼り付け"],
                     ["02", "6 軸で自動解析", "構造化データ〜E-E-A-T まで自動でチェック"],
                     ["03", "スコア＋改善提案", "100点満点の評価と、直すべき点を具体的に提示"],
                   ].map(([n, t, d]) => (
-                    <div key={n} className="bg-white p-5">
+                    <div key={n} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                       <span className="font-mono text-sm font-medium text-blue-600">{n}</span>
                       <p className="mt-1.5 text-sm font-medium text-slate-800">{t}</p>
                       <p className="mt-0.5 text-xs leading-relaxed text-slate-500">{d}</p>
@@ -186,7 +186,7 @@ export default function Home() {
               </div>
 
               {/* 診断する6観点 */}
-              <div className="border border-slate-200 bg-white">
+              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                 <p className="label-mono border-b border-slate-100 px-5 py-3">診断する 6 つの観点</p>
                 <div className="grid grid-cols-1 gap-px bg-slate-100 sm:grid-cols-2 lg:grid-cols-3">
                   {DIMENSIONS.map((d, i) => (
@@ -215,13 +215,13 @@ export default function Home() {
               </div>
 
               {/* メリット */}
-              <div className="grid grid-cols-1 gap-px border border-slate-200 bg-slate-200 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {[
                   ["定量スコア化", "“AIから見た”引用適性を 100点満点で可視化し、改善の優先度がわかる"],
                   ["具体的な改善提案", "各項目に「何を・なぜ直すべきか」を明示。次の一手に直結"],
                   ["登録不要・即診断", "APIキー不要のルールベースで即結果。LLMキー設定で定性評価も"],
                 ].map(([t, d]) => (
-                  <div key={t} className="bg-white p-5">
+                  <div key={t} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                     <p className="text-sm font-semibold text-slate-900">{t}</p>
                     <p className="mt-1 text-xs leading-relaxed text-slate-500">{d}</p>
                   </div>

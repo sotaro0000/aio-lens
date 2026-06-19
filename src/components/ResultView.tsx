@@ -15,9 +15,9 @@ export default function ResultView({ result }: { result: AnalysisResult }) {
   const { llm } = result;
 
   return (
-    <div className="animate-fade-up space-y-px bg-slate-200">
+    <div className="animate-fade-up space-y-4">
       {/* サマリー */}
-      <section className="bg-white p-6 sm:p-8">
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
         <div className="flex flex-col items-center gap-8 sm:flex-row">
           <ScoreGauge score={result.overallScore} grade={result.grade} />
           <div className="min-w-0 flex-1">
@@ -52,7 +52,7 @@ export default function ResultView({ result }: { result: AnalysisResult }) {
 
       {/* 総評 */}
       {llm && (
-        <section className="bg-white p-6 sm:p-8">
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="mb-3 flex items-center justify-between gap-3">
             <p className="label-mono">Assessment</p>
             <span className="font-mono text-[11px] text-slate-400">
@@ -98,9 +98,9 @@ export default function ResultView({ result }: { result: AnalysisResult }) {
       )}
 
       {/* 軸別 */}
-      <section className="bg-white p-6 sm:p-8">
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
         <p className="label-mono mb-4">Dimensions / 6 axes</p>
-        <div className="grid gap-px bg-slate-200 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           {result.dimensions.map((d, i) => (
             <DimensionCard key={d.key} dim={d} index={i} />
           ))}

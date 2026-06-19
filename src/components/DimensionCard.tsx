@@ -22,7 +22,7 @@ export default function DimensionCard({ dim, index }: { dim: DimensionResult; in
   const issues = dim.checks.filter((c) => c.status !== "pass").length;
 
   return (
-    <div className="border border-slate-200 bg-white transition-colors hover:border-slate-300">
+    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:border-slate-300 hover:shadow-md">
       <button
         onClick={() => setOpen((v) => !v)}
         className="flex w-full items-center gap-4 p-4 text-left"
