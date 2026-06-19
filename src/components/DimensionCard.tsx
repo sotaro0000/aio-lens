@@ -22,7 +22,7 @@ export default function DimensionCard({ dim, index }: { dim: DimensionResult; in
   const issues = dim.checks.filter((c) => c.status !== "pass").length;
 
   return (
-    <div className="border border-stone-200 bg-white transition-colors hover:border-stone-300">
+    <div className="border border-slate-200 bg-white transition-colors hover:border-slate-300">
       <button
         onClick={() => setOpen((v) => !v)}
         className="flex w-full items-center gap-4 p-4 text-left"
@@ -30,19 +30,19 @@ export default function DimensionCard({ dim, index }: { dim: DimensionResult; in
       >
         <div className="flex-1">
           <div className="flex items-baseline justify-between gap-3">
-            <h3 className="flex items-baseline gap-2 font-medium text-stone-900">
-              <span className="font-mono text-xs text-stone-400">{String(index + 1).padStart(2, "0")}</span>
+            <h3 className="flex items-baseline gap-2 font-medium text-slate-900">
+              <span className="font-mono text-xs text-slate-400">{String(index + 1).padStart(2, "0")}</span>
               {dim.label}
             </h3>
-            <span className="font-mono text-sm font-medium tabular-nums text-stone-800">{dim.score}</span>
+            <span className="font-mono text-sm font-medium tabular-nums text-slate-800">{dim.score}</span>
           </div>
-          <div className="mt-2 h-1 w-full overflow-hidden bg-stone-100">
+          <div className="mt-2 h-1 w-full overflow-hidden bg-slate-100">
             <div
               className={`h-full ${barColor(dim.score)}`}
               style={{ width: `${dim.score}%`, transition: "width 0.8s cubic-bezier(0.16,1,0.3,1)" }}
             />
           </div>
-          <p className="mt-2 text-xs leading-relaxed text-stone-500">{dim.description}</p>
+          <p className="mt-2 text-xs leading-relaxed text-slate-500">{dim.description}</p>
         </div>
         <div className="flex flex-col items-end gap-1.5">
           <span
@@ -50,12 +50,12 @@ export default function DimensionCard({ dim, index }: { dim: DimensionResult; in
           >
             {issues > 0 ? `${issues} issues` : "clear"}
           </span>
-          <span className="font-mono text-[11px] text-stone-400">{open ? "− close" : "+ detail"}</span>
+          <span className="font-mono text-[11px] text-slate-400">{open ? "− close" : "+ detail"}</span>
         </div>
       </button>
 
       {open && (
-        <ul className="space-y-3 border-t border-stone-100 p-4">
+        <ul className="space-y-3 border-t border-slate-100 p-4">
           {dim.checks.map((c) => {
             const meta = STATUS_META[c.status];
             return (
@@ -68,13 +68,13 @@ export default function DimensionCard({ dim, index }: { dim: DimensionResult; in
                 </span>
                 <div className="flex-1">
                   <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-sm font-medium text-stone-800">{c.label}</span>
-                    <span className="font-mono text-[11px] tabular-nums text-stone-400">{c.score}/100</span>
+                    <span className="text-sm font-medium text-slate-800">{c.label}</span>
+                    <span className="font-mono text-[11px] tabular-nums text-slate-400">{c.score}/100</span>
                   </div>
-                  <p className="text-xs leading-relaxed text-stone-500">{c.detail}</p>
+                  <p className="text-xs leading-relaxed text-slate-500">{c.detail}</p>
                   {c.recommendation && (
-                    <p className="mt-1.5 border-l-2 border-stone-300 bg-stone-50 py-1 pl-2.5 text-xs leading-relaxed text-stone-600">
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-stone-400">改善 </span>
+                    <p className="mt-1.5 border-l-2 border-slate-300 bg-slate-50 py-1 pl-2.5 text-xs leading-relaxed text-slate-600">
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400">改善 </span>
                       {c.recommendation}
                     </p>
                   )}

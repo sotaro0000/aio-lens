@@ -5,7 +5,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0c0a09", // stone-950 相当の近黒（プライマリ）
+        ink: "#0f172a", // slate-900（クールな近黒・プライマリ）
       },
       fontFamily: {
         // 見出し・ワードマーク：Space Grotesk（技術的・エディトリアル）

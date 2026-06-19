@@ -7,17 +7,21 @@
 }
 
 body {
-  @apply bg-stone-50 font-sans text-stone-700 antialiased;
+  @apply bg-slate-50 font-sans text-slate-700 antialiased;
+  /* 上質な奥行き：上部に淡いブルーのラディアルウォッシュ */
+  background-image: radial-gradient(115% 55% at 50% -8%, #eff6ff 0%, rgba(239, 246, 255, 0) 60%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 ::selection {
-  background: #0c0a09;
-  color: #fafaf9;
+  background: #0f172a;
+  color: #f8fafc;
 }
 
-/* スコアゲージの軌道（stone-200） */
+/* スコアゲージの軌道（slate-200） */
 .gauge-track {
-  stroke: #e7e5e4;
+  stroke: #e2e8f0;
 }
 
 /* 等幅の小ラベル（ブランドカラー＝ブルー） */

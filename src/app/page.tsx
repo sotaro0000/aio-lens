@@ -78,17 +78,17 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* トップバー */}
-      <header className="border-b border-stone-200 bg-stone-50/80 backdrop-blur">
+      <header className="border-b border-slate-200 bg-slate-50/80 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-3.5">
           <div className="flex items-baseline gap-2.5">
             <span className="font-display text-base font-bold tracking-tight text-ink">AIO Lens</span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-stone-400">analyzer</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">analyzer</span>
           </div>
           <a
             href="https://github.com/sotaro0000/aio-lens"
             target="_blank"
             rel="noreferrer noopener"
-            className="font-mono text-xs text-stone-500 underline-offset-4 hover:text-blue-600 hover:underline"
+            className="font-mono text-xs text-slate-500 underline-offset-4 hover:text-blue-600 hover:underline"
           >
             GitHub ↗
           </a>
@@ -103,8 +103,8 @@ export default function Home() {
             生成AIに引用されるページか、<br className="hidden sm:block" />
             6 軸で測る。
           </h1>
-          <p className="mt-4 text-sm leading-relaxed text-stone-500">
-            生成AIに引用されることは、<span className="font-medium text-stone-700">新しい検索流入の入口</span>になります。
+          <p className="mt-4 text-sm leading-relaxed text-slate-500">
+            生成AIに引用されることは、<span className="font-medium text-slate-700">新しい検索流入の入口</span>になります。
             ChatGPT や Google AI Overview が「何を根拠に引用先を選ぶか」を起点に URL を解析し、
             構造化データ・引用性・E-E-A-T など 6 観点をスコア化して、改善点を具体的に示します。
           </p>
@@ -117,7 +117,7 @@ export default function Home() {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://example.com/article"
-                className="flex-1 border border-stone-300 bg-white px-3.5 py-2.5 font-mono text-sm text-stone-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                className="flex-1 border border-slate-300 bg-white px-3.5 py-2.5 font-mono text-sm text-slate-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 disabled={loading}
               />
               <button
@@ -129,7 +129,7 @@ export default function Home() {
               </button>
             </div>
             <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
-              <span className="font-mono text-[11px] text-stone-400">e.g.</span>
+              <span className="font-mono text-[11px] text-slate-400">e.g.</span>
               {EXAMPLES.map((ex) => (
                 <button
                   key={ex}
@@ -139,13 +139,13 @@ export default function Home() {
                     analyze(ex);
                   }}
                   disabled={loading}
-                  className="border border-stone-200 px-2 py-0.5 font-mono text-[11px] text-stone-500 transition hover:border-blue-400 hover:text-blue-700 disabled:opacity-50"
+                  className="border border-slate-200 px-2 py-0.5 font-mono text-[11px] text-slate-500 transition hover:border-blue-400 hover:text-blue-700 disabled:opacity-50"
                 >
                   {ex.replace(/^https?:\/\//, "")}
                 </button>
               ))}
             </div>
-            <p className="mt-3 font-mono text-[11px] text-stone-400">
+            <p className="mt-3 font-mono text-[11px] text-slate-400">
               登録不要・APIキー不要で今すぐ診断（LLMキー設定で定性評価も有効化）
             </p>
           </form>
@@ -158,10 +158,10 @@ export default function Home() {
           )}
 
           {loading && (
-            <div className="space-y-px bg-stone-200">
-              <div className="h-44 animate-pulse bg-stone-100" />
-              <div className="h-28 animate-pulse bg-stone-100" />
-              <div className="h-40 animate-pulse bg-stone-100" />
+            <div className="space-y-px bg-slate-200">
+              <div className="h-44 animate-pulse bg-slate-100" />
+              <div className="h-28 animate-pulse bg-slate-100" />
+              <div className="h-40 animate-pulse bg-slate-100" />
             </div>
           )}
 
@@ -170,7 +170,7 @@ export default function Home() {
               {/* 使い方 3ステップ */}
               <div>
                 <p className="label-mono mb-4">使い方 — 3 ステップ</p>
-                <div className="grid grid-cols-1 gap-px border border-stone-200 bg-stone-200 sm:grid-cols-3">
+                <div className="grid grid-cols-1 gap-px border border-slate-200 bg-slate-200 sm:grid-cols-3">
                   {[
                     ["01", "URL を入力", "記事・LP・商品ページなどの URL を貼り付け"],
                     ["02", "6 軸で自動解析", "構造化データ〜E-E-A-T まで自動でチェック"],
@@ -178,17 +178,17 @@ export default function Home() {
                   ].map(([n, t, d]) => (
                     <div key={n} className="bg-white p-5">
                       <span className="font-mono text-sm font-medium text-blue-600">{n}</span>
-                      <p className="mt-1.5 text-sm font-medium text-stone-800">{t}</p>
-                      <p className="mt-0.5 text-xs leading-relaxed text-stone-500">{d}</p>
+                      <p className="mt-1.5 text-sm font-medium text-slate-800">{t}</p>
+                      <p className="mt-0.5 text-xs leading-relaxed text-slate-500">{d}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* 診断する6観点 */}
-              <div className="border border-stone-200 bg-white">
-                <p className="label-mono border-b border-stone-100 px-5 py-3">診断する 6 つの観点</p>
-                <div className="grid grid-cols-1 gap-px bg-stone-100 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="border border-slate-200 bg-white">
+                <p className="label-mono border-b border-slate-100 px-5 py-3">診断する 6 つの観点</p>
+                <div className="grid grid-cols-1 gap-px bg-slate-100 sm:grid-cols-2 lg:grid-cols-3">
                   {DIMENSIONS.map((d, i) => (
                     <div key={d.label} className="flex items-start gap-3 bg-white p-5">
                       <svg
@@ -198,16 +198,16 @@ export default function Home() {
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className="mt-0.5 h-5 w-5 flex-none text-stone-400"
+                        className="mt-0.5 h-5 w-5 flex-none text-slate-400"
                       >
                         {d.icon}
                       </svg>
                       <div>
-                        <p className="flex items-baseline gap-2 text-sm font-medium text-stone-800">
-                          <span className="font-mono text-[11px] text-stone-300">{String(i + 1).padStart(2, "0")}</span>
+                        <p className="flex items-baseline gap-2 text-sm font-medium text-slate-800">
+                          <span className="font-mono text-[11px] text-slate-300">{String(i + 1).padStart(2, "0")}</span>
                           {d.label}
                         </p>
-                        <p className="mt-0.5 font-mono text-[11px] text-stone-400">{d.hint}</p>
+                        <p className="mt-0.5 font-mono text-[11px] text-slate-400">{d.hint}</p>
                       </div>
                     </div>
                   ))}
@@ -215,15 +215,15 @@ export default function Home() {
               </div>
 
               {/* メリット */}
-              <div className="grid grid-cols-1 gap-px border border-stone-200 bg-stone-200 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-px border border-slate-200 bg-slate-200 sm:grid-cols-3">
                 {[
                   ["定量スコア化", "“AIから見た”引用適性を 100点満点で可視化し、改善の優先度がわかる"],
                   ["具体的な改善提案", "各項目に「何を・なぜ直すべきか」を明示。次の一手に直結"],
                   ["登録不要・即診断", "APIキー不要のルールベースで即結果。LLMキー設定で定性評価も"],
                 ].map(([t, d]) => (
                   <div key={t} className="bg-white p-5">
-                    <p className="text-sm font-semibold text-stone-900">{t}</p>
-                    <p className="mt-1 text-xs leading-relaxed text-stone-500">{d}</p>
+                    <p className="text-sm font-semibold text-slate-900">{t}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-slate-500">{d}</p>
                   </div>
                 ))}
               </div>
@@ -235,7 +235,7 @@ export default function Home() {
       </main>
 
       <footer className="mx-auto max-w-5xl px-5 pb-12 pt-6">
-        <div className="border-t border-stone-200 pt-5 font-mono text-[11px] leading-relaxed text-stone-400">
+        <div className="border-t border-slate-200 pt-5 font-mono text-[11px] leading-relaxed text-slate-400">
           <p>AIO Lens — generative-AI visibility analyzer · Next.js / TypeScript / LLM</p>
           <p className="mt-1">ルールベース診断は API キー不要で動作。LLM キー設定で定性評価を有効化。</p>
         </div>
