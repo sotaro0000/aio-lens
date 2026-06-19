@@ -88,7 +88,7 @@ export default function Home() {
             href="https://github.com/sotaro0000/aio-lens"
             target="_blank"
             rel="noreferrer noopener"
-            className="font-mono text-xs text-stone-500 underline-offset-4 hover:text-ink hover:underline"
+            className="font-mono text-xs text-stone-500 underline-offset-4 hover:text-blue-600 hover:underline"
           >
             GitHub ↗
           </a>
@@ -116,13 +116,13 @@ export default function Home() {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://example.com/article"
-                className="flex-1 border border-stone-300 bg-white px-3.5 py-2.5 font-mono text-sm text-stone-800 outline-none transition focus:border-ink"
+                className="flex-1 border border-stone-300 bg-white px-3.5 py-2.5 font-mono text-sm text-stone-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 disabled={loading}
               />
               <button
                 type="submit"
                 disabled={loading || !url.trim()}
-                className="bg-ink px-6 py-2.5 text-sm font-medium text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:opacity-40"
+                className="bg-blue-600 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {loading ? "解析中…" : "解析する"}
               </button>
@@ -138,7 +138,7 @@ export default function Home() {
                     analyze(ex);
                   }}
                   disabled={loading}
-                  className="border border-stone-200 px-2 py-0.5 font-mono text-[11px] text-stone-500 transition hover:border-stone-400 hover:text-stone-800 disabled:opacity-50"
+                  className="border border-stone-200 px-2 py-0.5 font-mono text-[11px] text-stone-500 transition hover:border-blue-400 hover:text-blue-700 disabled:opacity-50"
                 >
                   {ex.replace(/^https?:\/\//, "")}
                 </button>

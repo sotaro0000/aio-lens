@@ -20,7 +20,7 @@ body {
   stroke: #e7e5e4;
 }
 
-/* 等幅の小ラベル */
+/* 等幅の小ラベル（ブランドカラー＝ブルー） */
 .label-mono {
-  @apply font-mono text-[11px] uppercase tracking-[0.18em] text-stone-400;
+  @apply font-mono text-[11px] uppercase tracking-[0.18em] text-blue-600;
 }
