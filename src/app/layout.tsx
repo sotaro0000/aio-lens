@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AIO Lens｜あなたのWebページは生成AIに引用されているか？",
+  title: "AIO Lens — 生成AIへの引用最適化アナライザー",
   description:
-    "URL を入力するだけで、ChatGPT・Google AI Overview などの生成AIが引用しやすいページかを 6 つの観点で診断し、改善提案を提示する AIO（AI Optimization）診断ツール。",
+    "URL を入力すると、ChatGPT・Google AI Overview などの生成AIが引用しやすいページかを 6 軸で評価し、改善点を提示する AIO（AI Optimization）アナライザー。",
   openGraph: {
-    title: "AIO Lens — 生成AI時代のWeb可視性診断",
-    description: "生成AIに引用されやすいページかを診断する AIO 最適化ツール。",
+    title: "AIO Lens — 生成AIへの引用最適化アナライザー",
+    description: "生成AIに引用されやすいページかを 6 軸で評価する AIO アナライザー。",
     type: "website",
   },
 };
@@ -15,6 +15,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

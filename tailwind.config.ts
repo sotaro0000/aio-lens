@@ -5,37 +5,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: "#eef6ff",
-          100: "#d9eaff",
-          200: "#bcdcff",
-          300: "#8ec6ff",
-          400: "#59a5ff",
-          500: "#3380fc",
-          600: "#1d60f1",
-          700: "#164bdd",
-          800: "#193eb3",
-          900: "#1a388d",
-        },
+        ink: "#0c0a09", // stone-950 相当の近黒（プライマリ）
       },
       fontFamily: {
-        sans: [
-          "system-ui",
-          "-apple-system",
-          "Segoe UI",
-          "Hiragino Kaku Gothic ProN",
-          "Meiryo",
-          "sans-serif",
-        ],
+        // 見出し・ワードマーク：Space Grotesk（技術的・エディトリアル）
+        display: ['"Space Grotesk"', "Inter", "system-ui", "sans-serif"],
+        // 本文：Inter
+        sans: ["Inter", "system-ui", "-apple-system", "Hiragino Kaku Gothic ProN", "Meiryo", "sans-serif"],
+        // ラベル・数値：等幅
+        mono: ['"JetBrains Mono"', "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       keyframes: {
         "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "0%": { opacity: "0", transform: "translateY(6px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
-        "fade-up": "fade-up 0.4s ease-out both",
+        "fade-up": "fade-up 0.35s ease-out both",
       },
     },
   },

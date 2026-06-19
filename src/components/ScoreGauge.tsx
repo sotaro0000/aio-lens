@@ -1,18 +1,19 @@
-// 総合スコアを円形ゲージで表示する。
+// 総合スコアを計器的なリングで表示する。
 interface Props {
   score: number;
   grade: string;
 }
 
+// 機能的なスコア配色（chrome は無彩色、色はデータにのみ使う）
 function colorForScore(score: number): string {
-  if (score >= 80) return "#16a34a"; // green-600
-  if (score >= 65) return "#2563eb"; // blue-600
+  if (score >= 80) return "#059669"; // emerald-600
+  if (score >= 65) return "#0284c7"; // sky-600
   if (score >= 50) return "#d97706"; // amber-600
-  return "#dc2626"; // red-600
+  return "#e11d48"; // rose-600
 }
 
 export default function ScoreGauge({ score, grade }: Props) {
-  const radius = 76;
+  const radius = 72;
   const circumference = 2 * Math.PI * radius;
   const clamped = Math.max(0, Math.min(100, score));
   const offset = circumference * (1 - clamped / 100);
@@ -20,28 +21,29 @@ export default function ScoreGauge({ score, grade }: Props) {
 
   return (
     <div className="relative inline-flex items-center justify-center">
-      <svg width="180" height="180" viewBox="0 0 180 180" className="-rotate-90">
-        <circle cx="90" cy="90" r={radius} fill="none" strokeWidth="14" className="gauge-track" />
+      <svg width="172" height="172" viewBox="0 0 172 172" className="-rotate-90">
+        <circle cx="86" cy="86" r={radius} fill="none" strokeWidth="10" className="gauge-track" />
         <circle
-          cx="90"
-          cy="90"
+          cx="86"
+          cy="86"
           r={radius}
           fill="none"
           stroke={color}
-          strokeWidth="14"
+          strokeWidth="10"
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
-          style={{ transition: "stroke-dashoffset 0.9s ease-out" }}
+          style={{ transition: "stroke-dashoffset 0.9s cubic-bezier(0.16,1,0.3,1)" }}
         />
       </svg>
       <div className="absolute flex flex-col items-center">
-        <span className="text-5xl font-bold tabular-nums" style={{ color }}>
-          {score}
-        </span>
-        <span className="text-xs font-medium text-slate-400">/ 100</span>
-        <span className="mt-1 rounded-full px-2 py-0.5 text-xs font-bold text-white" style={{ background: color }}>
-          GRADE {grade}
+        <span className="font-display text-5xl font-semibold tabular-nums text-ink">{score}</span>
+        <span className="label-mono mt-0.5">Score / 100</span>
+        <span className="mt-2 flex items-center gap-1.5">
+          <span className="label-mono">Grade</span>
+          <span className="font-display text-sm font-bold" style={{ color }}>
+            {grade}
+          </span>
         </span>
       </div>
     </div>

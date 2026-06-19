@@ -7,10 +7,20 @@
 }
 
 body {
-  @apply bg-slate-50 text-slate-800 antialiased;
+  @apply bg-stone-50 font-sans text-stone-700 antialiased;
 }
 
-/* スコアゲージ用のグラデーション */
+::selection {
+  background: #0c0a09;
+  color: #fafaf9;
+}
+
+/* スコアゲージの軌道（stone-200） */
 .gauge-track {
-  stroke: #e2e8f0;
+  stroke: #e7e5e4;
+}
+
+/* 等幅の小ラベル */
+.label-mono {
+  @apply font-mono text-[11px] uppercase tracking-[0.18em] text-stone-400;
 }

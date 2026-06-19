@@ -6,13 +6,40 @@ import ResultView from "@/components/ResultView";
 
 const EXAMPLES = ["https://ja.wikipedia.org/wiki/人工知能", "https://nextjs.org", "https://developer.mozilla.org"];
 
-const DIMENSION_HINTS = [
-  { label: "構造化データ", hint: "JSON-LD / schema.org" },
-  { label: "コンテンツ引用性", hint: "簡潔さ・FAQ構造" },
-  { label: "セマンティック構造", hint: "見出し階層・HTML5" },
-  { label: "信頼性 (E-E-A-T)", hint: "著者・日付・出典" },
-  { label: "メタ・基本SEO", hint: "title / description" },
-  { label: "AIクローラビリティ", hint: "SSR・alt・密度" },
+// 6 軸（番号・ラベル・補足・ラインアイコン）
+const DIMENSIONS: { label: string; hint: string; icon: React.ReactNode }[] = [
+  {
+    label: "構造化データ",
+    hint: "JSON-LD / schema.org",
+    icon: (
+      <path d="M8 4 4 12l4 8M16 4l4 8-4 8" />
+    ),
+  },
+  {
+    label: "コンテンツ引用性",
+    hint: "簡潔さ・FAQ 構造",
+    icon: <path d="M7 8h10M7 12h7M5 4h14a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-4 4V5a1 1 0 0 1 1-1z" />,
+  },
+  {
+    label: "セマンティック構造",
+    hint: "見出し階層・HTML5",
+    icon: <path d="M4 5h16M7 10h13M7 15h13M4 10v10M4 10h0" />,
+  },
+  {
+    label: "信頼性 (E-E-A-T)",
+    hint: "著者・日付・出典",
+    icon: <path d="M12 3 5 6v5c0 4 3 7 7 9 4-2 7-5 7-9V6l-7-3zM9 12l2 2 4-4" />,
+  },
+  {
+    label: "メタ・基本SEO",
+    hint: "title / description",
+    icon: <path d="M3 7h18M3 12h18M3 17h10" />,
+  },
+  {
+    label: "AIクローラビリティ",
+    hint: "SSR・alt・密度",
+    icon: <path d="M5 8a7 7 0 0 1 14 0v4a7 7 0 0 1-14 0V8zM9 11h.01M15 11h.01M9 15h6" />,
+  },
 ];
 
 export default function Home() {
@@ -34,11 +61,8 @@ export default function Home() {
         body: JSON.stringify({ url: trimmed }),
       });
       const data = await res.json();
-      if (!res.ok) {
-        setError(data.error ?? "診断に失敗しました。");
-      } else {
-        setResult(data as AnalysisResult);
-      }
+      if (!res.ok) setError(data.error ?? "解析に失敗しました。");
+      else setResult(data as AnalysisResult);
     } catch {
       setError("ネットワークエラーが発生しました。");
     } finally {
@@ -52,110 +76,131 @@ export default function Home() {
   }
 
   return (
-    <main className="mx-auto min-h-screen max-w-4xl px-4 py-10 sm:py-16">
-      {/* ヘッダー */}
-      <header className="mb-10 text-center">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-brand-500" />
-          AIO — AI Optimization 診断ツール
+    <div className="min-h-screen">
+      {/* トップバー */}
+      <header className="border-b border-stone-200 bg-stone-50/80 backdrop-blur">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-3.5">
+          <div className="flex items-baseline gap-2.5">
+            <span className="font-display text-base font-bold tracking-tight text-ink">AIO Lens</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-stone-400">analyzer</span>
+          </div>
+          <a
+            href="https://github.com/sotaro0000/aio-lens"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="font-mono text-xs text-stone-500 underline-offset-4 hover:text-ink hover:underline"
+          >
+            GitHub ↗
+          </a>
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-          AIO <span className="text-brand-600">Lens</span>
-        </h1>
-        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-600">
-          あなたのWebページは、ChatGPT や Google AI Overview などの生成AIに
-          <strong className="text-slate-800">「引用・参照」</strong>されやすい状態ですか？
-          <br className="hidden sm:block" />
-          URL を入力するだけで、6 つの観点から AIO スコアを診断し、具体的な改善提案を提示します。
-        </p>
       </header>
 
-      {/* 入力フォーム */}
-      <form onSubmit={onSubmit} className="mx-auto max-w-2xl">
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <input
-            type="text"
-            inputMode="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://example.com/your-article"
-            className="flex-1 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm shadow-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
-            disabled={loading}
-          />
-          <button
-            type="submit"
-            disabled={loading || !url.trim()}
-            className="rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {loading ? "診断中…" : "診断する"}
-          </button>
-        </div>
-        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-400">
-          <span>例:</span>
-          {EXAMPLES.map((ex) => (
-            <button
-              key={ex}
-              type="button"
-              onClick={() => {
-                setUrl(ex);
-                analyze(ex);
-              }}
-              disabled={loading}
-              className="rounded-full bg-slate-100 px-2 py-1 text-slate-600 transition hover:bg-slate-200 disabled:opacity-50"
-            >
-              {ex.replace(/^https?:\/\//, "")}
-            </button>
-          ))}
-        </div>
-      </form>
+      <main className="mx-auto max-w-5xl px-5 py-12 sm:py-16">
+        {/* 見出し + 入力 */}
+        <div className="max-w-2xl">
+          <p className="label-mono">AI Optimization Analyzer</p>
+          <h1 className="mt-3 font-display text-3xl font-semibold leading-[1.25] tracking-tight text-ink sm:text-[2.5rem]">
+            生成AIに引用されるページか、<br className="hidden sm:block" />
+            6 軸で測る。
+          </h1>
+          <p className="mt-4 text-sm leading-relaxed text-stone-500">
+            ChatGPT や Google AI Overview などの生成AIは、何を根拠に引用先を選ぶのか。
+            URL を解析し、構造化データ・引用性・E-E-A-T など 6 つの観点をスコア化して、改善点を具体的に示します。
+          </p>
 
-      {/* 状態表示 */}
-      <div className="mt-10">
-        {error && (
-          <div className="mx-auto max-w-2xl rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {error}
-          </div>
-        )}
-
-        {loading && (
-          <div className="mx-auto max-w-2xl space-y-3">
-            <div className="h-32 animate-pulse rounded-2xl bg-slate-200/70" />
-            <div className="h-24 animate-pulse rounded-2xl bg-slate-200/60" />
-            <div className="grid gap-3 md:grid-cols-2">
-              <div className="h-28 animate-pulse rounded-xl bg-slate-200/50" />
-              <div className="h-28 animate-pulse rounded-xl bg-slate-200/50" />
+          <form onSubmit={onSubmit} className="mt-7">
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <input
+                type="text"
+                inputMode="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                placeholder="https://example.com/article"
+                className="flex-1 border border-stone-300 bg-white px-3.5 py-2.5 font-mono text-sm text-stone-800 outline-none transition focus:border-ink"
+                disabled={loading}
+              />
+              <button
+                type="submit"
+                disabled={loading || !url.trim()}
+                className="bg-ink px-6 py-2.5 text-sm font-medium text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {loading ? "解析中…" : "解析する"}
+              </button>
             </div>
-            <p className="text-center text-xs text-slate-400">
-              ページを取得して 6 軸で解析しています…
-            </p>
-          </div>
-        )}
-
-        {!loading && !result && !error && (
-          <div className="mx-auto max-w-2xl rounded-2xl border border-dashed border-slate-300 bg-white/60 p-6">
-            <p className="mb-4 text-center text-sm font-medium text-slate-500">診断する 6 つの観点</p>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {DIMENSION_HINTS.map((d) => (
-                <div key={d.label} className="rounded-lg border border-slate-100 bg-white p-3 text-center">
-                  <p className="text-xs font-semibold text-slate-700">{d.label}</p>
-                  <p className="mt-1 text-[11px] text-slate-400">{d.hint}</p>
-                </div>
+            <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+              <span className="font-mono text-[11px] text-stone-400">e.g.</span>
+              {EXAMPLES.map((ex) => (
+                <button
+                  key={ex}
+                  type="button"
+                  onClick={() => {
+                    setUrl(ex);
+                    analyze(ex);
+                  }}
+                  disabled={loading}
+                  className="border border-stone-200 px-2 py-0.5 font-mono text-[11px] text-stone-500 transition hover:border-stone-400 hover:text-stone-800 disabled:opacity-50"
+                >
+                  {ex.replace(/^https?:\/\//, "")}
+                </button>
               ))}
             </div>
-          </div>
-        )}
+          </form>
+        </div>
 
-        {result && <ResultView result={result} />}
-      </div>
+        {/* 状態 */}
+        <div className="mt-12">
+          {error && (
+            <div className="border-l-2 border-rose-400 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</div>
+          )}
 
-      <footer className="mt-16 border-t border-slate-200 pt-6 text-center text-xs text-slate-400">
-        <p>
-          AIO Lens — 生成AI時代のWeb可視性診断ツール / Next.js · TypeScript · LLM
-        </p>
-        <p className="mt-1">
-          ルールベース診断は API キー不要で動作します。LLM キー設定で定性評価が有効化されます。
-        </p>
+          {loading && (
+            <div className="space-y-px bg-stone-200">
+              <div className="h-44 animate-pulse bg-stone-100" />
+              <div className="h-28 animate-pulse bg-stone-100" />
+              <div className="h-40 animate-pulse bg-stone-100" />
+            </div>
+          )}
+
+          {!loading && !result && !error && (
+            <div className="border border-stone-200 bg-white">
+              <p className="label-mono border-b border-stone-100 px-5 py-3">診断する 6 つの観点</p>
+              <div className="grid grid-cols-1 gap-px bg-stone-100 sm:grid-cols-2 lg:grid-cols-3">
+                {DIMENSIONS.map((d, i) => (
+                  <div key={d.label} className="flex items-start gap-3 bg-white p-5">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="mt-0.5 h-5 w-5 flex-none text-stone-400"
+                    >
+                      {d.icon}
+                    </svg>
+                    <div>
+                      <p className="flex items-baseline gap-2 text-sm font-medium text-stone-800">
+                        <span className="font-mono text-[11px] text-stone-300">{String(i + 1).padStart(2, "0")}</span>
+                        {d.label}
+                      </p>
+                      <p className="mt-0.5 font-mono text-[11px] text-stone-400">{d.hint}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {result && <ResultView result={result} />}
+        </div>
+      </main>
+
+      <footer className="mx-auto max-w-5xl px-5 pb-12 pt-6">
+        <div className="border-t border-stone-200 pt-5 font-mono text-[11px] leading-relaxed text-stone-400">
+          <p>AIO Lens — generative-AI visibility analyzer · Next.js / TypeScript / LLM</p>
+          <p className="mt-1">ルールベース診断は API キー不要で動作。LLM キー設定で定性評価を有効化。</p>
+        </div>
       </footer>
-    </main>
+    </div>
   );
 }
