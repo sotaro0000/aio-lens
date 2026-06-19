@@ -104,8 +104,9 @@ export default function Home() {
             6 軸で測る。
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-stone-500">
-            ChatGPT や Google AI Overview などの生成AIは、何を根拠に引用先を選ぶのか。
-            URL を解析し、構造化データ・引用性・E-E-A-T など 6 つの観点をスコア化して、改善点を具体的に示します。
+            生成AIに引用されることは、<span className="font-medium text-stone-700">新しい検索流入の入口</span>になります。
+            ChatGPT や Google AI Overview が「何を根拠に引用先を選ぶか」を起点に URL を解析し、
+            構造化データ・引用性・E-E-A-T など 6 観点をスコア化して、改善点を具体的に示します。
           </p>
 
           <form onSubmit={onSubmit} className="mt-7">
@@ -144,6 +145,9 @@ export default function Home() {
                 </button>
               ))}
             </div>
+            <p className="mt-3 font-mono text-[11px] text-stone-400">
+              登録不要・APIキー不要で今すぐ診断（LLMキー設定で定性評価も有効化）
+            </p>
           </form>
         </div>
 
@@ -162,29 +166,64 @@ export default function Home() {
           )}
 
           {!loading && !result && !error && (
-            <div className="border border-stone-200 bg-white">
-              <p className="label-mono border-b border-stone-100 px-5 py-3">診断する 6 つの観点</p>
-              <div className="grid grid-cols-1 gap-px bg-stone-100 sm:grid-cols-2 lg:grid-cols-3">
-                {DIMENSIONS.map((d, i) => (
-                  <div key={d.label} className="flex items-start gap-3 bg-white p-5">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mt-0.5 h-5 w-5 flex-none text-stone-400"
-                    >
-                      {d.icon}
-                    </svg>
-                    <div>
-                      <p className="flex items-baseline gap-2 text-sm font-medium text-stone-800">
-                        <span className="font-mono text-[11px] text-stone-300">{String(i + 1).padStart(2, "0")}</span>
-                        {d.label}
-                      </p>
-                      <p className="mt-0.5 font-mono text-[11px] text-stone-400">{d.hint}</p>
+            <div className="space-y-12">
+              {/* 使い方 3ステップ */}
+              <div>
+                <p className="label-mono mb-4">使い方 — 3 ステップ</p>
+                <div className="grid grid-cols-1 gap-px border border-stone-200 bg-stone-200 sm:grid-cols-3">
+                  {[
+                    ["01", "URL を入力", "記事・LP・商品ページなどの URL を貼り付け"],
+                    ["02", "6 軸で自動解析", "構造化データ〜E-E-A-T まで自動でチェック"],
+                    ["03", "スコア＋改善提案", "100点満点の評価と、直すべき点を具体的に提示"],
+                  ].map(([n, t, d]) => (
+                    <div key={n} className="bg-white p-5">
+                      <span className="font-mono text-sm font-medium text-blue-600">{n}</span>
+                      <p className="mt-1.5 text-sm font-medium text-stone-800">{t}</p>
+                      <p className="mt-0.5 text-xs leading-relaxed text-stone-500">{d}</p>
                     </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 診断する6観点 */}
+              <div className="border border-stone-200 bg-white">
+                <p className="label-mono border-b border-stone-100 px-5 py-3">診断する 6 つの観点</p>
+                <div className="grid grid-cols-1 gap-px bg-stone-100 sm:grid-cols-2 lg:grid-cols-3">
+                  {DIMENSIONS.map((d, i) => (
+                    <div key={d.label} className="flex items-start gap-3 bg-white p-5">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mt-0.5 h-5 w-5 flex-none text-stone-400"
+                      >
+                        {d.icon}
+                      </svg>
+                      <div>
+                        <p className="flex items-baseline gap-2 text-sm font-medium text-stone-800">
+                          <span className="font-mono text-[11px] text-stone-300">{String(i + 1).padStart(2, "0")}</span>
+                          {d.label}
+                        </p>
+                        <p className="mt-0.5 font-mono text-[11px] text-stone-400">{d.hint}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* メリット */}
+              <div className="grid grid-cols-1 gap-px border border-stone-200 bg-stone-200 sm:grid-cols-3">
+                {[
+                  ["定量スコア化", "“AIから見た”引用適性を 100点満点で可視化し、改善の優先度がわかる"],
+                  ["具体的な改善提案", "各項目に「何を・なぜ直すべきか」を明示。次の一手に直結"],
+                  ["登録不要・即診断", "APIキー不要のルールベースで即結果。LLMキー設定で定性評価も"],
+                ].map(([t, d]) => (
+                  <div key={t} className="bg-white p-5">
+                    <p className="text-sm font-semibold text-stone-900">{t}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-stone-500">{d}</p>
                   </div>
                 ))}
               </div>
