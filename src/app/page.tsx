@@ -47,6 +47,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [copied, setCopied] = useState(false);
 
   async function analyze(target: string) {
     const trimmed = target.trim();
@@ -198,6 +199,23 @@ export default function Home() {
 
           {!loading && !result && !error && (
             <div className="space-y-12">
+              {/* メリット（「なぜ使うか」を先出し） */}
+              <div>
+                <p className="label-mono mb-4">AIO Lens でできること</p>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  {[
+                    ["定量スコア化", "“AIから見た”引用適性を 100点満点で可視化し、改善の優先度がわかる"],
+                    ["具体的な改善提案", "各項目に「何を・なぜ直すべきか」を明示。次の一手に直結"],
+                    ["登録不要・即診断", "APIキー不要のルールベースで即結果。LLMキー設定で定性評価も"],
+                  ].map(([t, d]) => (
+                    <div key={t} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                      <p className="text-sm font-semibold text-slate-900">{t}</p>
+                      <p className="mt-1 text-xs leading-relaxed text-slate-500">{d}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* 使い方 3ステップ */}
               <div>
                 <p className="label-mono mb-4">使い方 — 3 ステップ</p>
@@ -244,24 +262,49 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-
-              {/* メリット */}
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                {[
-                  ["定量スコア化", "“AIから見た”引用適性を 100点満点で可視化し、改善の優先度がわかる"],
-                  ["具体的な改善提案", "各項目に「何を・なぜ直すべきか」を明示。次の一手に直結"],
-                  ["登録不要・即診断", "APIキー不要のルールベースで即結果。LLMキー設定で定性評価も"],
-                ].map(([t, d]) => (
-                  <div key={t} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <p className="text-sm font-semibold text-slate-900">{t}</p>
-                    <p className="mt-1 text-xs leading-relaxed text-slate-500">{d}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           )}
 
-          {result && <ResultView result={result} />}
+          {result && (
+            <div>
+              {/* 結果ヘッダ：再実行・共有動線 */}
+              <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+                <button
+                  onClick={() => {
+                    setResult(null);
+                    setUrl("");
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50"
+                >
+                  ← 別の URL を解析
+                </button>
+                <button
+                  onClick={() => {
+                    const text = [
+                      `AIO スコア: ${result.overallScore}/100（${result.grade}）`,
+                      `対象: ${result.finalUrl}`,
+                      "",
+                      ...result.dimensions.map((d) => `・${d.label}: ${d.score}/100`),
+                      "",
+                      "— AIO Lens (https://aio-lens.vercel.app) で診断",
+                    ].join("\n");
+                    navigator.clipboard?.writeText(text).then(
+                      () => {
+                        setCopied(true);
+                        window.setTimeout(() => setCopied(false), 2000);
+                      },
+                      () => {},
+                    );
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50"
+                >
+                  {copied ? "コピーしました" : "結果をコピー"}
+                </button>
+              </div>
+              <ResultView result={result} />
+            </div>
+          )}
         </div>
       </main>
 
