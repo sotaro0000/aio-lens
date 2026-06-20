@@ -78,105 +78,100 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* ===== ダークグラデのヒーロー（ナビ内包）===== */}
-      <section className="relative overflow-hidden bg-slate-950 text-white">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-900/80"></div>
-        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl"></div>
+      {/* ===== ライトな SaaS 型ヒーロー（中央寄せ・入力主役）===== */}
+      <section className="relative overflow-hidden border-b border-slate-200 bg-white">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-blue-50 to-transparent"></div>
+        <div className="pointer-events-none absolute left-1/2 top-[-6rem] h-72 w-[36rem] -translate-x-1/2 rounded-full bg-blue-200/30 blur-3xl"></div>
 
         <div className="relative mx-auto max-w-5xl px-5">
           {/* トップバー */}
           <div className="flex items-center justify-between py-4">
             <div className="flex items-baseline gap-2.5">
-              <span className="font-display text-base font-bold tracking-tight text-white">AIO Lens</span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-blue-300">analyzer</span>
+              <span className="font-display text-base font-bold tracking-tight text-slate-900">AIO Lens</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-blue-500">analyzer</span>
             </div>
-            <a href="https://github.com/sotaro0000/aio-lens" target="_blank" rel="noreferrer noopener" className="font-mono text-xs text-slate-300 underline-offset-4 transition hover:text-white hover:underline">GitHub ↗</a>
+            <a href="https://github.com/sotaro0000/aio-lens" target="_blank" rel="noreferrer noopener" className="font-mono text-xs text-slate-500 underline-offset-4 transition hover:text-slate-900 hover:underline">GitHub ↗</a>
           </div>
 
-          {/* ヒーロー本体 */}
-          <div className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-2">
-            {/* 左：コピー＋入力 */}
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-blue-200">AI Optimization Analyzer</span>
-              <h1 className="mt-4 font-display text-3xl font-bold leading-[1.18] tracking-tight sm:text-[2.6rem]">
-                生成AIに引用されるか、<br className="hidden sm:block" />
-                <span className="text-blue-400">6 軸</span>で測る。
-              </h1>
-              <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-300">
-                生成AIに引用されることは、新しい検索流入の入口。URL を解析し、構造化データ・引用性・E-E-A-T など 6 観点をスコア化して、改善点を具体的に示します。
-              </p>
+          {/* ヒーロー本体（中央寄せ・1カラム）*/}
+          <div className="mx-auto max-w-2xl pb-6 pt-10 text-center sm:pt-14">
+            <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-blue-600">AI Optimization Analyzer</span>
+            <h1 className="mt-5 font-display text-[2rem] font-bold leading-[1.18] tracking-tight text-slate-900 sm:text-[2.7rem]">
+              生成AIに引用されるか、<br className="hidden sm:block" />
+              <span className="text-blue-600">6 軸</span>で測る。
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-600">
+              生成AIに引用されることは、新しい検索流入の入口。URL を入力するだけで、構造化データ・引用性・E-E-A-T など 6 観点をスコア化し、改善点を具体的に示します。
+            </p>
 
-              <form onSubmit={onSubmit} className="mt-7">
-                <div className="flex flex-col gap-2 sm:flex-row">
-                  <input
-                    type="text"
-                    inputMode="url"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    placeholder="https://example.com/article"
-                    className="flex-1 rounded-xl border border-white/15 bg-white px-4 py-3 font-mono text-sm text-slate-800 shadow-lg outline-none transition focus:ring-2 focus:ring-blue-400"
-                    disabled={loading}
-                  />
+            <form onSubmit={onSubmit} className="mx-auto mt-8 max-w-xl">
+              <div className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg shadow-slate-200/60 sm:flex-row sm:items-center sm:gap-0 sm:rounded-full sm:pl-5">
+                <input
+                  type="text"
+                  inputMode="url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="https://example.com/article"
+                  className="flex-1 rounded-xl bg-transparent px-4 py-3 font-mono text-sm text-slate-800 outline-none placeholder:text-slate-400 sm:px-0"
+                  disabled={loading}
+                />
+                <button
+                  type="submit"
+                  disabled={loading || !url.trim()}
+                  className="rounded-xl bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40 sm:rounded-full"
+                >
+                  {loading ? "解析中…" : "解析する"}
+                </button>
+              </div>
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5">
+                <span className="font-mono text-[11px] text-slate-400">e.g.</span>
+                {EXAMPLES.map((ex) => (
                   <button
-                    type="submit"
-                    disabled={loading || !url.trim()}
-                    className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40"
+                    key={ex}
+                    type="button"
+                    onClick={() => {
+                      setUrl(ex);
+                      analyze(ex);
+                    }}
+                    disabled={loading}
+                    className="rounded-full border border-slate-200 bg-white px-3 py-1 font-mono text-[11px] text-slate-500 transition hover:border-blue-400 hover:text-blue-600 disabled:opacity-50"
                   >
-                    {loading ? "解析中…" : "解析する"}
+                    {ex.replace(/^https?:\/\//, "")}
                   </button>
-                </div>
-                <div className="mt-3 flex flex-wrap items-center gap-1.5">
-                  <span className="font-mono text-[11px] text-slate-400">e.g.</span>
-                  {EXAMPLES.map((ex) => (
-                    <button
-                      key={ex}
-                      type="button"
-                      onClick={() => {
-                        setUrl(ex);
-                        analyze(ex);
-                      }}
-                      disabled={loading}
-                      className="rounded-full border border-white/15 px-3 py-1 font-mono text-[11px] text-slate-300 transition hover:border-blue-400 hover:text-white disabled:opacity-50"
-                    >
-                      {ex.replace(/^https?:\/\//, "")}
-                    </button>
-                  ))}
-                </div>
-              </form>
-
-              <div className="mt-5 flex flex-wrap gap-2">
-                {["登録不要", "APIキー不要", "6軸スコア＋改善提案"].map((b) => (
-                  <span key={b} className="rounded-full bg-white/5 px-3 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">{b}</span>
                 ))}
               </div>
+            </form>
+
+            <div className="mt-5 flex flex-wrap justify-center gap-2">
+              {["登録不要", "APIキー不要", "6軸スコア＋改善提案"].map((b) => (
+                <span key={b} className="rounded-full bg-slate-100 px-3 py-1 text-[11px] text-slate-500">{b}</span>
+              ))}
             </div>
 
-            {/* 右：出力プレビュー */}
-            <div className="relative">
-              <div className="rounded-2xl border border-white/10 bg-white p-5 shadow-2xl">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-blue-600">AIO Score</span>
-                  <span className="font-mono text-[10px] text-slate-400">example.com</span>
-                </div>
-                <div className="mt-3 flex items-center gap-4">
-                  <div className="relative flex h-20 w-20 flex-none items-center justify-center">
-                    <svg className="h-20 w-20 -rotate-90" viewBox="0 0 80 80">
-                      <circle cx="40" cy="40" r="34" fill="none" stroke="#e2e8f0" strokeWidth="7" />
-                      <circle cx="40" cy="40" r="34" fill="none" stroke="#2563eb" strokeWidth="7" strokeLinecap="round" strokeDasharray="213" strokeDashoffset="51" />
-                    </svg>
-                    <span className="absolute font-display text-xl font-bold text-slate-900">76</span>
-                  </div>
-                  <div className="flex-1 space-y-2">
-                    {[["構造化データ", "58", "w-[58%] bg-amber-500"], ["コンテンツ引用性", "80", "w-[80%] bg-emerald-500"], ["E-E-A-T", "78", "w-[78%] bg-emerald-500"]].map(([k, v, bar]) => (
-                      <div key={k}>
-                        <div className="flex justify-between text-[10px] text-slate-500"><span>{k}</span><span className="font-mono">{v}</span></div>
-                        <div className="mt-0.5 h-1.5 w-full overflow-hidden rounded-full bg-slate-100"><div className={`h-full rounded-full ${bar}`} /></div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="mt-3 rounded-lg bg-blue-50 px-3 py-2 text-[11px] leading-relaxed text-blue-800"><span className="font-mono text-[9px] uppercase tracking-wider text-blue-600">改善提案 </span>FAQ構造とJSON-LDの追加で、AIへの引用性が向上します</div>
+            {/* スコア・プレビュー（主役のビジュアル）*/}
+            <div className="mx-auto mt-12 max-w-md rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-xl shadow-slate-200/70">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-blue-600">AIO Score</span>
+                <span className="font-mono text-[10px] text-slate-400">example.com</span>
               </div>
+              <div className="mt-3 flex items-center gap-4">
+                <div className="relative flex h-20 w-20 flex-none items-center justify-center">
+                  <svg className="h-20 w-20 -rotate-90" viewBox="0 0 80 80">
+                    <circle cx="40" cy="40" r="34" fill="none" stroke="#e2e8f0" strokeWidth="7" />
+                    <circle cx="40" cy="40" r="34" fill="none" stroke="#2563eb" strokeWidth="7" strokeLinecap="round" strokeDasharray="213" strokeDashoffset="51" />
+                  </svg>
+                  <span className="absolute font-display text-xl font-bold text-slate-900">76</span>
+                </div>
+                <div className="flex-1 space-y-2">
+                  {[["構造化データ", "58", "w-[58%] bg-amber-500"], ["コンテンツ引用性", "80", "w-[80%] bg-emerald-500"], ["E-E-A-T", "78", "w-[78%] bg-emerald-500"]].map(([k, v, bar]) => (
+                    <div key={k}>
+                      <div className="flex justify-between text-[10px] text-slate-500"><span>{k}</span><span className="font-mono">{v}</span></div>
+                      <div className="mt-0.5 h-1.5 w-full overflow-hidden rounded-full bg-slate-100"><div className={`h-full rounded-full ${bar}`} /></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-3 rounded-lg bg-blue-50 px-3 py-2 text-[11px] leading-relaxed text-blue-800"><span className="font-mono text-[9px] uppercase tracking-wider text-blue-600">改善提案 </span>FAQ構造とJSON-LDの追加で、AIへの引用性が向上します</div>
             </div>
           </div>
         </div>
